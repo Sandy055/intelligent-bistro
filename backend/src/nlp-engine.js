@@ -550,9 +550,13 @@ export function processMessage(text, cart = []) {
       }
       
       const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const itemLines = cart.map(item => {
+        const line = `• ${item.quantity}× **${item.name}**${item.size ? ` (${item.size})` : ''} — $${(item.price * item.quantity).toFixed(2)}`;
+        return line;
+      }).join('\n');
       return {
         intent: 'view_cart',
-        message: `Here's your current order — looking great! Your total is **$${total.toFixed(2)}**.`,
+        message: `Here's your current order:\n\n${itemLines}\n\n**Total: $${total.toFixed(2)}**`,
         data: { cart, total },
         actions: [],
         suggestions: ['Checkout', 'Add more items', 'Clear my cart']

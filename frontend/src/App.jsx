@@ -150,7 +150,9 @@ function Message({ msg, onAddItem, onSelectCategory, onSuggestion }) {
 
 // Format **bold** text to <strong>
 function formatMessageText(text) {
-  return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n/g, '<br/>');
 }
 
 // ─── Menu View ───
